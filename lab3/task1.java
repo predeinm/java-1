@@ -1,6 +1,3 @@
-
-package task5_array;
-
 import java.util.Scanner;
 
 public class Main {
