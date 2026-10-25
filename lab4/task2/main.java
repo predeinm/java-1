@@ -7,63 +7,71 @@ public class Main {
 
         try {
 
-            // Создание наличного платежа
-            Payment payment1 = new CashPayment(
-                    new BigDecimal("1000.00"),
-                    LocalDate.now(),
-                    "Покупка продуктов"
-            );
-
-            Payment payment2 = new CardPayment(
-                    new BigDecimal("2000.00"),
-                    LocalDate.now(),
-                    "Оплата покупки"
-            );
-
-            Payment payment3 = new BankTransferPayment(
-                    new BigDecimal("5000.00"),
-                    LocalDate.now(),
-                    "Перевод денежных средств"
-            );
-
             Payment[] payments = {
-                    payment1,
-                    payment2,
-                    payment3
+
+                new CashPayment(
+                        new BigDecimal("1000.00"),
+                        LocalDate.now(),
+                        "Покупка продуктов"
+                ),
+
+                new CashPayment(
+                        new BigDecimal("2500.00"),
+                        LocalDate.now(),
+                        "Покупка одежды"
+                ),
+
+                new CardPayment(
+                        new BigDecimal("3000.00"),
+                        LocalDate.now(),
+                        "Оплата техники"
+                ),
+
+                new CardPayment(
+                        new BigDecimal("1500.00"),
+                        LocalDate.now(),
+                        "Оплата услуг"
+                ),
+
+                new BankTransferPayment(
+                        new BigDecimal("5000.00"),
+                        LocalDate.now(),
+                        "Перевод денежных средств"
+                ),
+
+                new BankTransferPayment(
+                        new BigDecimal("4000.00"),
+                        LocalDate.now(),
+                        "Оплата аренды"
+                )
             };
+
+            BigDecimal total = BigDecimal.ZERO;
 
             System.out.println("=== СПИСОК ПЛАТЕЖЕЙ ===");
 
             for (Payment payment : payments) {
 
-                System.out.println();
-
                 System.out.println(payment);
+
+                BigDecimal paymentTotal =
+                        payment.getAmount()
+                                .add(payment.calculateCommission());
+
+                total = total.add(paymentTotal);
 
                 System.out.println("-------------------------");
             }
 
-            System.out.println("\n=== СРАВНЕНИЕ ПЛАТЕЖЕЙ ===");
+            System.out.println("\n=== ОБЩИЙ РЕЗУЛЬТАТ ===");
 
-            Payment payment4 = new CashPayment(
-                    new BigDecimal("1000.00"),
-                    LocalDate.now(),
-                    "Покупка продуктов"
+            System.out.println(
+                    "Количество платежей: " + payments.length
             );
 
             System.out.println(
-                    "Первый и четвёртый платежи равны: "
-                    + payment1.equals(payment4)
-            );
-
-            System.out.println(
-                    "HashCode первого платежа: "
-                    + payment1.hashCode()
-            );
-
-            System.out.println(
-                    "HashCode четвёртого платежа: "
-                    + payment4.hashCode()
+                    "Общая сумма платежей с комиссиями: "
+                    + total + " руб."
             );
 
         } catch (IllegalArgumentException e) {
