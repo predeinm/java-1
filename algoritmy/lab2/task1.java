@@ -4,7 +4,8 @@ import java.util.List;
 
 public class Main {
 
-    / Сортировка серийных номеров методом Radix Sort.
+    /* 
+      Сортировка серийных номеров методом Radix Sort.
      
       Временная сложность: O(n * k),
       где n — количество серийных номеров,
@@ -14,7 +15,7 @@ public class Main {
       используются дополнительные списки.
       Сортировка стабильная: порядок номеров с одинаковой
       цифрой в текущем разряде сохраняется.
-      /
+      */
     public static int[] radixSort(int[] serialNumbers) {
         if (serialNumbers == null || serialNumbers.length == 0) {
             return serialNumbers;
